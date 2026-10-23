@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: mailroom-agent
+    runtime: node
+    plan: 0.5c-512mb
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /health
+    envVars:
+      - key: MODEL_API_KEY
+        sync: false
+      - key: MODEL_NAME
+        value: gemini-3.5-flash-lite
+      - key: DB_PATH
+        value: /var/data/data.db
+    disk:
+      name: mailroom-data
+      mountPath: /var/data
+      sizeGB: 1
